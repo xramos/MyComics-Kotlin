@@ -1,10 +1,13 @@
 package com.xramos.mycomics.ui.screen
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import com.xramos.mycomics.ui.component.Header
+import com.xramos.mycomics.ui.component.InputSearch
 import com.xramos.mycomics.ui.theme.MyComicsTheme
 
 @Composable
@@ -24,6 +27,20 @@ fun HomeScreen(
 @Composable
 fun HomeContent() {
 
+    Column {
+
+        Header()
+
+        InputSearch(
+            text = "",
+            onTextChange = {
+
+            }, onSearchClicked = {
+
+            }, onCloseClicked = {
+
+            })
+    }
 }
 
 @Preview(
