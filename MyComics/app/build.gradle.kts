@@ -83,6 +83,10 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.6.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
+    // Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("com.google.code.gson:gson:2.10")
+
     // JUnit
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
