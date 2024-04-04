@@ -1,7 +1,7 @@
 package com.xramos.mycomics.domain.model.enumerations
 
-enum class Gender {
-    other,
-    male,
-    female,
+enum class Gender(val printableName: String) {
+    OTHER("Other"),
+    MALE("Male"),
+    FEMALE("Female"),
 }

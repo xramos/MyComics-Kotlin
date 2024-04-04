@@ -21,9 +21,9 @@ fun CharacterResponse.toModel() : CharacterModel =
 
 fun CharacterResponse.getGender() : Gender =
     when (gender) {
-        1 -> Gender.male
-        2 -> Gender.female
-        else -> Gender.other
+        1 -> Gender.MALE
+        2 -> Gender.FEMALE
+        else -> Gender.OTHER
     }
 
 fun CharacterResponse.getPowers(): List<PowerModel> =

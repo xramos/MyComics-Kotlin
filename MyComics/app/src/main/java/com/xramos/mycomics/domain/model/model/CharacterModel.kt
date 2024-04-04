@@ -10,7 +10,7 @@ data class CharacterModel(
     val image: ImageModel = ImageModel(),
     val birth: String = "",
     val deck: String = "",
-    val gender: Gender = Gender.other,
+    val gender: Gender = Gender.OTHER,
     val origin: String = "",
     val powers: List<PowerModel> = emptyList()
 )
