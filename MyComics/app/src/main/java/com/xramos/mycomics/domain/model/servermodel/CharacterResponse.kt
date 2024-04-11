@@ -1,11 +1,13 @@
 package com.xramos.mycomics.domain.model.servermodel
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CharacterResponse(
     val id: Int,
     val name: String = "",
-    @SerializedName("real_name")
+    @SerialName("real_name")
     val realName: String = "",
     val aliases: String = "",
     val image: ImageResponse = ImageResponse(),

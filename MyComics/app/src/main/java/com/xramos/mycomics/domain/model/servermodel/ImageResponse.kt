@@ -1,12 +1,14 @@
 package com.xramos.mycomics.domain.model.servermodel
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ImageResponse(
-    @SerializedName("small_url")
+    @SerialName("small_url")
     val smallUrl: String = "",
-    @SerializedName("super_url")
+    @SerialName("super_url")
     val superUrl: String = "",
-    @SerializedName("thumb_url")
+    @SerialName("thumb_url")
     val thumbUrl: String = ""
 )

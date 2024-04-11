@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -83,9 +84,13 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.6.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
+    // Ktor
+    implementation("io.ktor:ktor-client-android:1.5.0")
+    implementation("io.ktor:ktor-client-serialization:1.5.0")
+    implementation("io.ktor:ktor-client-logging-jvm:1.5.0")
+
     // Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-    implementation("com.google.code.gson:gson:2.10")
 
     // JUnit
     testImplementation("junit:junit:4.13.2")
