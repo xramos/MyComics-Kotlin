@@ -14,41 +14,45 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 private const val TIME_OUT = 60_000
 
-private val client = HttpClient(Android) {
+class NetworkClient @Inject constructor() {
 
-    install(JsonFeature) {
-        serializer = KotlinxSerializer(Json {
-            prettyPrint = true
-            isLenient = true
-            ignoreUnknownKeys = true
-        })
+    fun getClient() = HttpClient(Android) {
 
-        engine {
-            connectTimeout = TIME_OUT
-            socketTimeout = TIME_OUT
-        }
-    }
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(Json {
+                prettyPrint = true
+                isLenient = true
+                ignoreUnknownKeys = true
+            })
 
-    install(Logging) {
-        logger = object : Logger {
-            override fun log(message: String) {
-                Log.v("Logger Ktor =>", message)
+            engine {
+                connectTimeout = TIME_OUT
+                socketTimeout = TIME_OUT
             }
-
         }
-        level = LogLevel.ALL
-    }
 
-    install(ResponseObserver) {
-        onResponse { response ->
-            Log.d("HTTP status:", "${response.status.value}")
+        install(Logging) {
+            logger = object : Logger {
+                override fun log(message: String) {
+                    Log.v("Logger Ktor =>", message)
+                }
+
+            }
+            level = LogLevel.ALL
         }
-    }
 
-    install(DefaultRequest) {
-        header(HttpHeaders.ContentType, ContentType.Application.Json)
+        install(ResponseObserver) {
+            onResponse { response ->
+                Log.d("HTTP status:", "${response.status.value}")
+            }
+        }
+
+        install(DefaultRequest) {
+            header(HttpHeaders.ContentType, ContentType.Application.Json)
+        }
     }
 }
