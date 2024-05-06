@@ -1,6 +1,7 @@
 package com.xramos.mycomics.data.network.client
 
 import android.util.Log
+import com.xramos.mycomics.Constants
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.DefaultRequest
@@ -11,6 +12,7 @@ import io.ktor.client.features.logging.Logger
 import io.ktor.client.features.logging.Logging
 import io.ktor.client.features.observer.ResponseObserver
 import io.ktor.client.request.header
+import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import kotlinx.serialization.json.Json
@@ -21,6 +23,11 @@ private const val TIME_OUT = 60_000
 class NetworkClient @Inject constructor() {
 
     fun getClient() = HttpClient(Android) {
+
+        install(DefaultRequest) {
+            url(Constants.BASE_URL)
+            header(HttpHeaders.ContentType, ContentType.Application.Json)
+        }
 
         install(JsonFeature) {
             serializer = KotlinxSerializer(Json {
@@ -49,10 +56,6 @@ class NetworkClient @Inject constructor() {
             onResponse { response ->
                 Log.d("HTTP status:", "${response.status.value}")
             }
-        }
-
-        install(DefaultRequest) {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
         }
     }
 }

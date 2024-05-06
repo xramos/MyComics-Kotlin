@@ -10,19 +10,19 @@ class NetworkAPI(private val client: HttpClient) {
 
     suspend fun searchCharacter(value: String): Result<List<CharacterResponse>> {
 
-        return client.get("${Constants.BASE_URL}search/") {
+        return client.get("${Constants.BASE_URL}/search/") {
             parameter("api_key", Constants.API_KEY)
             parameter("query", value)
             parameter("format", "json")
             parameter("field_list", "id,image,name,aliases,real_name,gender")
             parameter("resources", "character")
-            parameter("limit", "100")
+            parameter("limit", "20")
         }
     }
 
     suspend fun getCharacter(id: Int): Result<CharacterResponse> {
 
-        return client.get("${Constants.BASE_URL}character/4005-$id") {
+        return client.get("${Constants.BASE_URL}/character/4005-$id") {
             parameter("api_key", Constants.API_KEY)
             parameter("format", "json")
             parameter("field_list", "id,image,name,aliases,real_name,birth,deck,gender,origin,powers")
