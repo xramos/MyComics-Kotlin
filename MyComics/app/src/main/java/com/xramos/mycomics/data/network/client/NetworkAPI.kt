@@ -10,7 +10,7 @@ class NetworkAPI(private val client: HttpClient) {
 
     suspend fun searchCharacter(value: String): Result<List<CharacterResponse>> {
 
-        return client.get("${Constants.BASE_URL}/search/") {
+        return client.get("${Constants.BASE_URL}/search") {
             parameter("api_key", Constants.API_KEY)
             parameter("query", value)
             parameter("format", "json")

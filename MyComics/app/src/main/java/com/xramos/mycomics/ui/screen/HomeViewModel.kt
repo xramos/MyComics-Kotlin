@@ -37,8 +37,15 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-            repository.searchCharacter(search).map {
+            repository.searchCharacter(search)
+                .onSuccess {
+
                 _searchedCharacters.value = it
+
+            }
+                .onFailure {
+
+                // TODO: Handle Error case
             }
         }
     }

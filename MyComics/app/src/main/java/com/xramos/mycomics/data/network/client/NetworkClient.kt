@@ -25,7 +25,6 @@ class NetworkClient @Inject constructor() {
     fun getClient() = HttpClient(Android) {
 
         install(DefaultRequest) {
-            url(Constants.BASE_URL)
             header(HttpHeaders.ContentType, ContentType.Application.Json)
         }
 
