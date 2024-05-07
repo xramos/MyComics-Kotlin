@@ -56,12 +56,14 @@ fun ListItemCharacter(item: CharacterModel,
                             color = Color.White,
                         ),
                     )
-                    Text(
-                        text = item.realName,
-                        style = TextStyle(
-                            color = Color.White,
-                        ),
-                    )
+                    item.realName?.let {
+                        Text(
+                            text = it,
+                            style = TextStyle(
+                                color = Color.White,
+                            ),
+                        )
+                    }
                 }
             }
         }

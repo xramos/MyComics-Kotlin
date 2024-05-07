@@ -11,7 +11,7 @@ class RepositoryImpl @Inject constructor(private val networkApi: NetworkAPI): Re
 
         return networkApi.searchCharacter(value).map {
             val characterModel: ArrayList<CharacterModel> = ArrayList()
-            for (serverCharacter: CharacterResponse in it) {
+            for (serverCharacter: CharacterResponse in it.results) {
 
                 characterModel.add(serverCharacter.toModel())
             }
