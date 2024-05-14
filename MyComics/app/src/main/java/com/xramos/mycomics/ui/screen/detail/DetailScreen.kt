@@ -12,12 +12,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,9 +41,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.xramos.mycomics.domain.model.model.CharacterModel
 import com.xramos.mycomics.domain.model.model.getPowers
+import com.xramos.mycomics.navigation.Screen
 import com.xramos.mycomics.ui.component.CharacterHeader
 import com.xramos.mycomics.ui.theme.MyComicsTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(navController: NavHostController,
                  characterId: Int,
@@ -46,22 +54,34 @@ fun DetailScreen(navController: NavHostController,
 
     MyComicsTheme {
 
+        Scaffold(topBar = {
+            TopAppBar(title = { Text("My Comics") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate(Screen.Home.route) }) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = null)
+                    }
+                })
+        }) {
+
         LaunchedEffect(characterId) {
             viewModel.getCharacter(characterId)
         }
 
         val character by viewModel.characterModel.collectAsState()
 
-        DetailContent(character = character)
+        DetailContent(modifier = Modifier.padding(it),
+            character = character)
+    }
     }
 }
 
 @Composable
-fun DetailContent(character: CharacterModel?) {
+fun DetailContent(modifier: Modifier,
+                  character: CharacterModel?) {
 
     character?.let {
 
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        Column(modifier = modifier.verticalScroll(rememberScrollState())) {
 
             Header(character)
 
