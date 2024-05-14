@@ -14,3 +14,18 @@ data class CharacterModel(
     val origin: String = "",
     val powers: List<PowerModel> = emptyList()
 )
+
+fun CharacterModel.getPowers(): String {
+    
+    var result = ""
+
+    powers.map {
+        result = "$result, ${it.name}"
+    }
+
+    if (powers.isNotEmpty()) {
+        result = result.removeRange(startIndex = 0, endIndex = 2)
+    }
+    
+    return result
+}

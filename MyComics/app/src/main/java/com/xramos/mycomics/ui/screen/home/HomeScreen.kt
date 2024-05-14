@@ -66,7 +66,7 @@ fun HomeContent(navController: NavHostController,
 
             items(searchedCharacters.value) { character ->
 
-                ListItemCharacter(item = character,
+                ListItemCharacter(character = character,
                         onClick = {
                             val route = "${Screen.Detail.route}/${it}"
                             navController.navigate(route)

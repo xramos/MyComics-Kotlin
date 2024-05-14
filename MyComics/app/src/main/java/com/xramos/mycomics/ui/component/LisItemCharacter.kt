@@ -16,55 +16,23 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.xramos.mycomics.domain.model.model.CharacterModel
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun ListItemCharacter(item: CharacterModel,
+fun ListItemCharacter(character: CharacterModel,
                       onClick: (id: Int) -> Unit) {
-
-    val painter = rememberImagePainter(data = item.image.smallUrl) {
-        crossfade(1000)
-        //error drawable
-        //placeholder drawable
-    }
 
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
             .wrapContentHeight()
-            .clickable { onClick(item.id.toInt()) },
+            .clickable { onClick(character.id.toInt()) },
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-            ) {
 
-            Image(painter = painter,
-                contentDescription = null,
-                modifier = Modifier.size(80.dp, 80.dp).padding(8.dp),
-                contentScale = ContentScale.Fit)
-
-            Column(Modifier.padding(8.dp)) {
-                Text(
-                    text = item.name,
-                    fontSize = 24.sp,
-                    style = TextStyle(
-                        color = Color.Black,
-                    ),
-                )
-                Row {
-                    item.realName?.let {
-                        Text(
-                            text = it,
-                            fontSize = 16.sp,
-                            style = TextStyle(
-                                color = Color.Black,
-                            ),
-                        )
-                    }
-                }
-            }
-        }
+        CharacterHeader(
+            modifier = Modifier.size(80.dp, 80.dp).padding(8.dp),
+            character = character,
+            url = character.image.smallUrl)
     }
 }
