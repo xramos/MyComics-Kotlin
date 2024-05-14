@@ -1,8 +1,8 @@
 package com.xramos.mycomics.data.network.client
 
 import com.xramos.mycomics.Constants
-import com.xramos.mycomics.domain.model.servermodel.CharacterResponse
-import com.xramos.mycomics.domain.model.servermodel.SearchCharacterResponse
+import com.xramos.mycomics.domain.model.servermodel.BaseCharacterListResponse
+import com.xramos.mycomics.domain.model.servermodel.BaseCharacterResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.features.ResponseException
 import io.ktor.client.request.get
@@ -10,7 +10,7 @@ import io.ktor.client.request.parameter
 
 class NetworkAPI(private val client: HttpClient) {
 
-    suspend fun searchCharacter(value: String): Result<SearchCharacterResponse> {
+    suspend fun searchCharacter(value: String): Result<BaseCharacterListResponse> {
 
         return try {
             Result.success(client.get("${Constants.BASE_URL}/search") {
@@ -26,7 +26,7 @@ class NetworkAPI(private val client: HttpClient) {
         }
     }
 
-    suspend fun getCharacter(id: Int): Result<CharacterResponse> {
+    suspend fun getCharacter(id: Int): Result<BaseCharacterResponse> {
 
         return try {
             Result.success(client.get("${Constants.BASE_URL}/character/4005-$id") {

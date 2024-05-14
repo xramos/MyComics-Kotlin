@@ -1,4 +1,4 @@
-package com.xramos.mycomics.ui.screen
+package com.xramos.mycomics.ui.screen.home
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

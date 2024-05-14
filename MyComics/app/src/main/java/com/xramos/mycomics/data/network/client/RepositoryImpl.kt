@@ -20,10 +20,10 @@ class RepositoryImpl @Inject constructor(private val networkApi: NetworkAPI): Re
         }
     }
 
-    override suspend fun getCharacter(id: Int): Result<CharacterModel> {
+    override suspend fun getCharacter(id: Int): Result<CharacterModel?> {
 
         return networkApi.getCharacter(id).map {
-            it.toModel()
+            it.results?.toModel()
         }
     }
 }

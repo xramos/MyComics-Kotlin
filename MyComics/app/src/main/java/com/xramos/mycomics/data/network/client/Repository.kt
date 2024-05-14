@@ -6,5 +6,5 @@ interface Repository {
 
     suspend fun searchCharacter(value: String): Result<List<CharacterModel>>
 
-    suspend fun getCharacter(id: Int): Result<CharacterModel>
+    suspend fun getCharacter(id: Int): Result<CharacterModel?>
 }

@@ -1,4 +1,4 @@
-package com.xramos.mycomics.ui.screen
+package com.xramos.mycomics.ui.screen.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.xramos.mycomics.navigation.Screen
 import com.xramos.mycomics.ui.component.Header
 import com.xramos.mycomics.ui.component.InputSearch
 import com.xramos.mycomics.ui.component.ListItemCharacter
@@ -28,13 +29,16 @@ fun HomeScreen(
 
        Surface {
 
-           HomeContent(viewModel = viewModel)
+           HomeContent(navController = navController,
+               viewModel = viewModel)
        }
    }
 }
 
 @Composable
-fun HomeContent(viewModel: HomeViewModel) {
+fun HomeContent(navController: NavHostController,
+                viewModel: HomeViewModel
+) {
 
     val searchQuery by viewModel.searchQuery
     val searchedCharacters = viewModel.searchedCharacters.collectAsState()
@@ -64,7 +68,8 @@ fun HomeContent(viewModel: HomeViewModel) {
 
                 ListItemCharacter(item = character,
                         onClick = {
-                            // TODO: Navigate to CharacterDetail
+                            val route = "${Screen.Detail.route}/${it}"
+                            navController.navigate(route)
                         })
             }
         }
