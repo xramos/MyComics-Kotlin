@@ -1,51 +1,69 @@
 package com.xramos.mycomics.ui.screen.home
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Surface
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.xramos.mycomics.navigation.Screen
-import com.xramos.mycomics.ui.component.Header
+import com.xramos.mycomics.ui.component.ComicsTopAppBar
 import com.xramos.mycomics.ui.component.InputSearch
 import com.xramos.mycomics.ui.component.ListItemCharacter
 import com.xramos.mycomics.ui.theme.MyComicsTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navigateToCharacter: (Int) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
-   MyComicsTheme {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-       Surface {
+    MyComicsTheme {
 
-           HomeContent(navigateToCharacter,
-               viewModel)
-       }
-   }
+        Scaffold(
+            modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+
+                ComicsTopAppBar(
+                    title = "My Comics",
+                    canNavigateBack = false,
+                    scrollBehavior = scrollBehavior)
+
+            }) { innerPadding ->
+
+            HomeBody(
+                navigateToCharacter = navigateToCharacter,
+                viewModel = viewModel,
+                contentPadding = innerPadding
+            )
+        }
+    }
 }
 
 @Composable
-fun HomeContent(navigateToCharacter: (Int) -> Unit,
-                viewModel: HomeViewModel
+fun HomeBody(navigateToCharacter: (Int) -> Unit,
+             viewModel: HomeViewModel,
+             contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
 
     val searchQuery by viewModel.searchQuery
     val searchedCharacters = viewModel.searchedCharacters.collectAsState()
 
-    Column {
-
-        Header()
+    Column(
+        modifier = Modifier.padding(contentPadding)
+    ) {
 
         InputSearch(
             text = searchQuery,
@@ -57,12 +75,7 @@ fun HomeContent(navigateToCharacter: (Int) -> Unit,
                 viewModel.setSearch(false)
             })
 
-        LazyColumn(
-            contentPadding = PaddingValues(
-                horizontal = 16.dp,
-                vertical = 8.dp
-            )
-        ) {
+        LazyColumn {
 
             items(searchedCharacters.value) { character ->
 
@@ -70,31 +83,6 @@ fun HomeContent(navigateToCharacter: (Int) -> Unit,
                         onClick = {
                             navigateToCharacter(it)
                         })
-            }
-        }
-    }
-}
-
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "Default Preview Dark"
-)
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    name = "Default Preview Light"
-)
-@Composable
-fun HomePreview() {
-
-    MyComicsTheme {
-
-        Surface {
-
-            Column {
-
-                Header()
             }
         }
     }

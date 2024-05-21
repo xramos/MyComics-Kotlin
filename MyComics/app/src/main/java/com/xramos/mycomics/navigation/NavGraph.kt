@@ -28,7 +28,7 @@ fun SetupNavGraph(navController: NavHostController) {
             it.arguments?.getInt("characterId")?.let { characterId ->
                 DetailScreen(
                     navigateBack = {
-                        navController.navigateUp()
+                        navController.popBackStack()
                     },
                     characterId = characterId)
             }
