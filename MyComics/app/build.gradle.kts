@@ -63,11 +63,9 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
-    //implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    //implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("androidx.navigation:navigation-runtime-ktx:${rootProject.extra["navigation_version"]}")
+    implementation("androidx.navigation:navigation-ui-ktx:${rootProject.extra["navigation_version"]}")
+    implementation("androidx.navigation:navigation-compose:${rootProject.extra["navigation_version"]}")
 
     // Compose
     implementation("androidx.compose.compiler:compiler:1.5.11")
@@ -87,9 +85,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
     // Ktor
-    implementation("io.ktor:ktor-client-android:1.5.0")
-    implementation("io.ktor:ktor-client-serialization:1.5.0")
-    implementation("io.ktor:ktor-client-logging-jvm:1.5.0")
+    implementation("io.ktor:ktor-client-android:${rootProject.extra["ktor_version"]}")
+    implementation("io.ktor:ktor-client-serialization:${rootProject.extra["ktor_version"]}")
+    implementation("io.ktor:ktor-client-logging-jvm:${rootProject.extra["ktor_version"]}")
 
     // Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
@@ -101,7 +99,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Coil
-    implementation("io.coil-kt:coil-compose:1.3.2")
+    implementation("io.coil-kt:coil-compose:${rootProject.extra["coil_version"]}")
 
     // JUnit
     testImplementation("junit:junit:4.13.2")

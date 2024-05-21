@@ -1,6 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
 
+    extra.apply {
+        set("navigation_version", "2.7.7")
+        set("ktor_version", "1.5.0")
+        set("coil_version", "1.3.2")
+    }
+
     repositories {
         google()
         mavenCentral()
