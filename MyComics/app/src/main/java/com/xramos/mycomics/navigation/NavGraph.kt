@@ -17,7 +17,9 @@ fun SetupNavGraph(navController: NavHostController) {
         startDestination = Screen.Home.route) {
 
         composable(route = Screen.Home.route) {
-            HomeScreen(navController = navController)
+            HomeScreen(navigateToCharacter = {
+                navController.navigate("${Screen.Detail.route}/${it}")
+            })
         }
 
         composable(route = "${Screen.Detail.route}/{characterId}",
@@ -25,7 +27,9 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
             it.arguments?.getInt("characterId")?.let { characterId ->
                 DetailScreen(
-                    navController = navController,
+                    navigateBack = {
+                        navController.navigateUp()
+                    },
                     characterId = characterId)
             }
         }

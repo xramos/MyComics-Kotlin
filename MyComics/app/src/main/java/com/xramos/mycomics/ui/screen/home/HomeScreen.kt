@@ -21,7 +21,7 @@ import com.xramos.mycomics.ui.theme.MyComicsTheme
 
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
+    navigateToCharacter: (Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
@@ -29,14 +29,14 @@ fun HomeScreen(
 
        Surface {
 
-           HomeContent(navController = navController,
-               viewModel = viewModel)
+           HomeContent(navigateToCharacter,
+               viewModel)
        }
    }
 }
 
 @Composable
-fun HomeContent(navController: NavHostController,
+fun HomeContent(navigateToCharacter: (Int) -> Unit,
                 viewModel: HomeViewModel
 ) {
 
@@ -68,8 +68,7 @@ fun HomeContent(navController: NavHostController,
 
                 ListItemCharacter(character = character,
                         onClick = {
-                            val route = "${Screen.Detail.route}/${it}"
-                            navController.navigate(route)
+                            navigateToCharacter(it)
                         })
             }
         }

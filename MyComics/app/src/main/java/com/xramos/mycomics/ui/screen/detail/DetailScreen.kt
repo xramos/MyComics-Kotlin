@@ -47,7 +47,7 @@ import com.xramos.mycomics.ui.theme.MyComicsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(navController: NavHostController,
+fun DetailScreen(navigateBack: () -> Unit,
                  characterId: Int,
                  viewModel: DetailViewModel = hiltViewModel()
 ) {
@@ -57,7 +57,7 @@ fun DetailScreen(navController: NavHostController,
         Scaffold(topBar = {
             TopAppBar(title = { Text("My Comics") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate(Screen.Home.route) }) {
+                    IconButton(onClick = { navigateBack()}) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = null)
                     }
                 })
