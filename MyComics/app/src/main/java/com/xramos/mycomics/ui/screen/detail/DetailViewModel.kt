@@ -17,6 +17,8 @@ class DetailViewModel @Inject constructor(
     private val _characterModel: MutableStateFlow<CharacterModel?> = MutableStateFlow(null)
     val characterModel = _characterModel
 
+    var isFavorite: Boolean = false
+
     fun getCharacter(id: Int) {
         viewModelScope.launch {
             val result = repository.getCharacter(id)
@@ -27,5 +29,11 @@ class DetailViewModel @Inject constructor(
                     // TODO: Implement this!
                 }
         }
+    }
+
+    suspend fun updateFavorite(id: Int) {
+        // TODO: Implement this!
+
+        isFavorite = !isFavorite
     }
 }

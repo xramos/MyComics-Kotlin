@@ -8,9 +8,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,6 +24,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.TextStyle
@@ -32,6 +39,7 @@ import com.xramos.mycomics.domain.model.model.getPowers
 import com.xramos.mycomics.ui.component.CharacterHeader
 import com.xramos.mycomics.ui.component.ComicsTopAppBar
 import com.xramos.mycomics.ui.theme.MyComicsTheme
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +50,7 @@ fun DetailScreen(navigateBack: () -> Unit,
 ) {
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val coroutineScope = rememberCoroutineScope()
 
     MyComicsTheme {
 
@@ -55,6 +64,22 @@ fun DetailScreen(navigateBack: () -> Unit,
                     scrollBehavior = scrollBehavior,
                     navigateUp = { navigateBack() })
 
+            }, floatingActionButton = {
+                FloatingActionButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            viewModel.updateFavorite(characterId)
+                        }
+                    },
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.padding(20.dp)) {
+
+                    Icon(imageVector = when(viewModel.isFavorite) {
+                        true -> Icons.Default.Favorite
+                        false -> Icons.Default.FavoriteBorder
+                    },
+                        contentDescription = "Add/Remove Favorite")
+                }
             }) {
 
             LaunchedEffect(characterId) {
