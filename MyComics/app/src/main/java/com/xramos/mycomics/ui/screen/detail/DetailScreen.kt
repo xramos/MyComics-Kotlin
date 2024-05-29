@@ -24,16 +24,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.xramos.mycomics.R
 import com.xramos.mycomics.domain.model.model.CharacterModel
 import com.xramos.mycomics.domain.model.model.getPowers
 import com.xramos.mycomics.ui.component.CharacterHeader
@@ -59,7 +61,6 @@ fun DetailScreen(navigateBack: () -> Unit,
             topBar = {
 
                 ComicsTopAppBar(
-                    title = "My Comics",
                     canNavigateBack = true,
                     scrollBehavior = scrollBehavior,
                     navigateUp = { navigateBack() })
@@ -113,17 +114,19 @@ fun DetailContent(modifier: Modifier,
 fun Header(character: CharacterModel) {
 
     Card(modifier = Modifier
-        .padding(8.dp)
+        .padding(dimensionResource(id = R.dimen.padding_small))
         .fillMaxWidth()
         .wrapContentHeight(),
         shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
-        ) {
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = dimensionResource(id = R.dimen.elevation)
+        )
+    ) {
 
         CharacterHeader(
             modifier = Modifier
                 .size(120.dp, 120.dp)
-                .padding(8.dp),
+                .padding(dimensionResource(id = R.dimen.padding_small)),
             character = character,
             url = character.image.superUrl)
     }
@@ -132,61 +135,94 @@ fun Header(character: CharacterModel) {
 @Composable
 fun Body(character: CharacterModel) {
 
-        Card(
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            shape = MaterialTheme.shapes.medium,
-            elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
-        ) {
+    Card(
+        modifier = Modifier
+            .padding(dimensionResource(id = R.dimen.padding_small))
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = dimensionResource(id = R.dimen.elevation)
+        )
+    ) {
 
-            character.birth?.let {
-                TitleComponent(title = "Birth:", value = it)
-            }
-
-            TitleComponent(title = "Gender:", value = character.gender.printableName)
-
-            TitleComponent(title = "Origin:", value = character.origin)
-
-            character.aliases?.let {
-                TitleComponent(title = "Alias:", value = it)
-            }
-
-            InfoComponent(title = "Powers:", value = character.getPowers())
-
-            character.deck?.let {
-                InfoComponent(title = "Description:", value = it)
-            }
+        character.birth?.let {
+            TitleComponent(
+                title = stringResource(id = R.string.birth),
+                value = it
+            )
         }
+
+        TitleComponent(
+            title = stringResource(id = R.string.gender),
+            value = character.gender.printableName
+        )
+
+        TitleComponent(
+            title = stringResource(id = R.string.origin),
+            value = character.origin
+        )
+
+        character.aliases?.let {
+            InfoComponent(
+                title = stringResource(id = R.string.alias),
+                value = it
+            )
+        }
+
+        InfoComponent(
+            title = stringResource(id = R.string.powers),
+            value = character.getPowers()
+        )
+
+        character.deck?.let {
+            InfoComponent(
+                title = stringResource(id = R.string.description),
+                value = it
+            )
+        }
+    }
 }
 
 @Composable
 fun TitleComponent(title: String, value: String) {
 
-    Row(modifier = Modifier
-        .padding(8.dp)) {
+    Row(
+        modifier = Modifier
+            .padding(dimensionResource(id = R.dimen.padding_small))
+    ) {
 
-        Text(text = title,
+        Text(
+            text = title,
             textAlign = TextAlign.Left,
-            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+            style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(end = dimensionResource(id = R.dimen.padding_small))
+        )
 
-        Text(text = value,
+        Text(
+            text = value,
             textAlign = TextAlign.Right,
-            style = MaterialTheme.typography.bodyMedium)
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
 @Composable
 fun InfoComponent(title: String, value: String) {
 
-    Column(modifier = Modifier
-        .padding(8.dp)) {
+    Column(
+        modifier = Modifier
+            .padding(dimensionResource(id = R.dimen.padding_small))
+    ) {
 
-        Text(title,
-            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
+        Text(
+            title,
+            style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold)
+        )
 
-        Text(value,
-            style = MaterialTheme.typography.bodyMedium)
+        Text(
+            value,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }

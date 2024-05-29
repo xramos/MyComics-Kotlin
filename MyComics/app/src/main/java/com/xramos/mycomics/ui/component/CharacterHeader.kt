@@ -4,17 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.dimensionResource
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.xramos.mycomics.R
 import com.xramos.mycomics.domain.model.model.CharacterModel
 
 @OptIn(ExperimentalCoilApi::class)
@@ -33,27 +33,24 @@ fun CharacterHeader(modifier: Modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Image(painter = painter,
-            contentDescription = null,
-            modifier = modifier,
-            contentScale = ContentScale.Fit)
+        Image(
+            modifier = modifier
+                .clip(MaterialTheme.shapes.large),
+            contentScale = ContentScale.Crop,
+            painter = painter,
+            contentDescription = null
+        )
 
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(dimensionResource(id = R.dimen.padding_small))) {
             Text(
                 text = character.name,
-                fontSize = 24.sp,
-                style = TextStyle(
-                    color = Color.Black,
-                ),
+                style = MaterialTheme.typography.titleLarge
             )
             Row {
                 character.realName?.let {
                     Text(
                         text = it,
-                        fontSize = 16.sp,
-                        style = TextStyle(
-                            color = Color.Black,
-                        ),
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }

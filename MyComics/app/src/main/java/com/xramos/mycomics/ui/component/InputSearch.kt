@@ -19,19 +19,26 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.xramos.mycomics.R
 
 @Composable
 fun InputSearch(text: String,
                 onTextChange: (String) -> Unit,
                 onSearchClicked: (String) -> Unit,
-                onCloseClicked: () -> Unit) {
+                onCloseClicked: () -> Unit,
+                modifier: Modifier = Modifier) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        modifier = modifier
+            .padding(
+                horizontal = dimensionResource(id = R.dimen.padding_medium),
+                vertical = dimensionResource(id = R.dimen.padding_small)
+            )
     ) {
         TextField(
             value = text,
@@ -40,7 +47,7 @@ fun InputSearch(text: String,
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(dimensionResource(id = R.dimen.search_size))
                 .border(
                     width = 1.5f.dp,
                     color = MaterialTheme.colorScheme.primary,
@@ -52,8 +59,8 @@ fun InputSearch(text: String,
                     Icons.Default.Search,
                     contentDescription = "",
                     modifier = Modifier
-                        .padding(8.dp)
-                        .size(24.dp),
+                        .padding(dimensionResource(id = R.dimen.padding_small))
+                        .size(dimensionResource(id = R.dimen.icon_size)),
                     tint = MaterialTheme.colorScheme.primary)
             },
             trailingIcon = {
@@ -67,8 +74,8 @@ fun InputSearch(text: String,
                             Icons.Default.Close,
                             contentDescription = "",
                             modifier = Modifier
-                                .padding(8.dp)
-                                .size(24.dp),
+                                .padding(dimensionResource(id = R.dimen.padding_small))
+                                .size(dimensionResource(id = R.dimen.icon_size)),
                             tint = MaterialTheme.colorScheme.primary
                         )
                     }

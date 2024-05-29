@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="elevation">5dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="image_size">64dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="search_size">48dp</dimen>
+</resources>

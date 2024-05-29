@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Comics</string>
+    <string name="birth">Birth:</string>
+    <string name="gender">Gender:</string>
+    <string name="origin">Origin:</string>
+    <string name="alias">Alias:</string>
+    <string name="powers">Powers:</string>
+    <string name="description">Description:</string>
 </resources>
